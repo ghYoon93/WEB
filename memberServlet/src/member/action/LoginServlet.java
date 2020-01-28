@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.bean.MemberDAO;
+
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -18,11 +20,12 @@ public class LoginServlet extends HttpServlet {
 	        throws ServletException, IOException {
 	    String id = request.getParameter("id");
 	    String pw = request.getParameter("password");
-	    String result = "아이디 또는 비밀번호가 맞지 않습니다.";
 	    MemberDAO memberDAO = MemberDAO.getInstance();
-	    boolean isExistId = memberDAO.isExistId(id);
-	    if(isExistId && memberDAO.isPwMatch(id, pw)) {
-	        String name = memberDAO.findName(id);
+	    
+	    String result = "아이디 또는 비밀번호가 맞지 않습니다.";
+	    boolean idExists = memberDAO.idExists(id);
+	    if(idExists && memberDAO.passwordEquals(id, pw)) {
+	        String name = memberDAO.getName(id);
 	        result = name+"님 환영합니다.";
 	    }
 	    response.setContentType("text/html; charset=UTF-8");
