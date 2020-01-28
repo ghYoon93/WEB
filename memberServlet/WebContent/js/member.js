@@ -1,17 +1,19 @@
 function checkWriteForm() {
-    let sId = document.writeForm.name.value;
-    let sPw = document.writeForm.id.value;
-    if(document.writeForm.name.value==""){
-	    alert("이름을 입력하세요.");
-	} else if(document.writeForm.id.value==""){
-		alert("아이디를 입력하세요.");
-	} else if(document.writeForm.password.value==""){
-		alert("비밀번호를 입력하세요.");
-	} else if(document.writeForm.password.value!=document.writeForm.repwd.value){
-		alert("비밀번호가 맞지않습니다.");
-	} else {
-        document.writeForm.submit();
-	}
+    let sId = document.writeForm.id.value;
+    let sName = document.writeForm.name.value;
+    let sPwd = document.writeForm.password.value;
+    let sRepwd = document.writeForm.repw.value;
+    checkId(sId);
+    checkName(sName);
+    checkPwd(sPwd);
+    checkPwdEquals(sPwd, sRepwd);
+	
+    window.open(""
+			  ,"viewer"
+			  ,"width=300 height=100 left=500 top=100");
+	document.writeForm.target = "viewer";
+    document.writeForm.submit();
+	
 }
 
 function checkPost(){
@@ -86,6 +88,19 @@ function checkPw(sPw){
 		location.history(0);
 	}
 }
+function checkName(sName){
+	if(sName==""){
+		alert("이름을 입력하지 않았습니다.");
+		location.history(0);
+	}
+}
+
+function checkPwdEquals(sPwd, sRepwd) {
+	if(sPw != sRepw){
+		alert("비밀번호가 맞지않습니다.");
+		location.history(0);
+	}
+}
 
 function login(){
 	let sId = document.loginForm.id.value;
@@ -99,9 +114,7 @@ function login(){
 	document.loginForm.target = "viewer";
 	document.loginForm.submit();
 }
-function isExistedId(sId){
-	
-}
+
 function signIn(){
 	
 }
