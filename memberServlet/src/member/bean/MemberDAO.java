@@ -1,4 +1,4 @@
-package member.action;
+package member.bean;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,8 +41,7 @@ public class MemberDAO {
         }
         return instance;
     }
-    public boolean isExistId(String id) {
-        boolean isExist = false;
+    public boolean idExists(String id) {
         String sql = "SELECT * FROM member WHERE id=?";
         try {
             this.getConnection();
@@ -66,7 +65,7 @@ public class MemberDAO {
         return false;
     }
 
-    public boolean isPwMatch(String id, String pw) {
+    public boolean passwordEquals(String id, String pw) {
         String sql = "SELECT * FROM member WHERE id=? AND pwd=?";
         try {
             this.getConnection();
@@ -90,7 +89,7 @@ public class MemberDAO {
         return false;
     }
 
-    public String findName(String id) {
+    public String getName(String id) {
         String name="";
         String sql = "SELECT name FROM member WHERE id = ?";
         this.getConnection();
@@ -113,4 +112,36 @@ public class MemberDAO {
         }
         return name;
     }
+
+	public void insert(MemberDTO memberDTO) {
+		String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,SYSDATE)";
+		this.getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, memberDTO.getId());
+            pstmt.setString(2, memberDTO.getPwd());
+            pstmt.setString(3, memberDTO.getGender());
+            pstmt.setString(4, memberDTO.getEmail1());
+            pstmt.setString(5, memberDTO.getEmail2());
+            pstmt.setString(6, memberDTO.getTel1());
+            pstmt.setString(7, memberDTO.getTel2());
+            pstmt.setString(8, memberDTO.getTel3());
+            pstmt.setString(9, memberDTO.getZipcode());
+            pstmt.setString(10, memberDTO.getAddr1());
+            pstmt.setString(11, memberDTO.getAddr2());
+            pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(rs!=null)rs.close();
+                if(pstmt!=null) pstmt.close();
+                if(conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        
+        }
+		
+	}
 }
