@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.bean.MemberDAO;
+
 @WebServlet("/CheckIdServlect")
 public class CheckIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,9 @@ public class CheckIdServlet extends HttpServlet {
 	        throws ServletException, IOException {
         String id = request.getParameter("id");
         MemberDAO memberDAO = MemberDAO.getInstance();
-        boolean isExist = memberDAO.isExistId(id);
+        boolean idExists = memberDAO.idExists(id);
+        String result = id+"는(은) 사용 가능";
+        if(idExists) result = id+"는(은) 불가능";
         
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -26,8 +30,7 @@ public class CheckIdServlet extends HttpServlet {
 		out.println("<head>");
 		out.println("</head>");
 		out.println("<body>");
-		if(isExist) out.println(id+"는(은) 사용 불가능");
-		else out.println(id+"는(은) 사용 가능");
+		out.println(result);
 		out.println("</body>");
 		out.println("</html>");
 		   
