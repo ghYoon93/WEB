@@ -114,21 +114,23 @@ public class MemberDAO {
     }
 
 	public void insert(MemberDTO memberDTO) {
-		String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,SYSDATE)";
+		String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,?,SYSDATE)";
 		this.getConnection();
         try {
+            System.out.println(memberDTO);
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, memberDTO.getId());
-            pstmt.setString(2, memberDTO.getPwd());
-            pstmt.setString(3, memberDTO.getGender());
-            pstmt.setString(4, memberDTO.getEmail1());
-            pstmt.setString(5, memberDTO.getEmail2());
-            pstmt.setString(6, memberDTO.getTel1());
-            pstmt.setString(7, memberDTO.getTel2());
-            pstmt.setString(8, memberDTO.getTel3());
-            pstmt.setString(9, memberDTO.getZipcode());
-            pstmt.setString(10, memberDTO.getAddr1());
-            pstmt.setString(11, memberDTO.getAddr2());
+            pstmt.setString(1, memberDTO.getName());
+            pstmt.setString(2, memberDTO.getId());
+            pstmt.setString(3, memberDTO.getPwd());
+            pstmt.setString(4, memberDTO.getGender());
+            pstmt.setString(5, memberDTO.getEmail1());
+            pstmt.setString(6, memberDTO.getEmail2());
+            pstmt.setString(7, memberDTO.getTel1());
+            pstmt.setString(8, memberDTO.getTel2());
+            pstmt.setString(9, memberDTO.getTel3());
+            pstmt.setString(10, memberDTO.getZipcode());
+            pstmt.setString(11, memberDTO.getAddr1());
+            pstmt.setString(12, memberDTO.getAddr2());
             pstmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

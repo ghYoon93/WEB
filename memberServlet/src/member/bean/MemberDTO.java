@@ -1,10 +1,13 @@
 package member.bean;
 
 public class MemberDTO {
-    String id, pwd, gender, email1, email2, 
+    String name, id, pwd, gender, email1, email2, 
     tel1, tel2, tel3, zipcode, addr1, addr2;
     public MemberDTO() {
     	
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 	public void setId(String id) {
 		this.id = id;
@@ -39,6 +42,9 @@ public class MemberDTO {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
+    public String getName() {
+        return name;
+    }
 	public String getId() {
 		return id;
 	}
@@ -72,5 +78,7 @@ public class MemberDTO {
 	public String getAddr2() {
 		return addr2;
 	}
-    
+	public String toString() {
+	    return name;
+	}
 }
