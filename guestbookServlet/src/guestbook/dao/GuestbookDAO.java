@@ -1,4 +1,4 @@
-package guestbook.bean;
+package guestbook.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import guestbook.bean.GuestbookDTO;
 
 public class GuestbookDAO {
     private static GuestbookDAO instance;
@@ -53,7 +55,7 @@ public class GuestbookDAO {
         
         String sql = "INSERT INTO guestbook VALUES(seq_guestbook.NEXTVAL, ?, ?, ?, ?, ?, sysdate)";
         try {
-            System.out.println("DAO"+dto.getHompage());
+//            System.out.println("DAO"+dto.getHompage());
             this.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
@@ -61,8 +63,47 @@ public class GuestbookDAO {
             pstmt.setString(3, homepage);
             pstmt.setString(4, subject);
             pstmt.setString(5, content);
-            rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(pstmt!=null) pstmt.close();
+                if(conn!=null) conn.close();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public ArrayList<GuestbookDTO> selectAll(int startNum, int endNum){
+        ArrayList<GuestbookDTO> list = new ArrayList<GuestbookDTO>();
+        String sql = "SELECT *"
+                    + " FROM (SELECT ROWNUM rn, tt.*"
+                            + " FROM(SELECT seq, name, email, homepage, subject, content"
+                                       + ", TO_CHAR(logtime, 'YYYY.MM.DD') AS \"logtime\""
+                                   + " FROM guestbook"
+                                   +" ORDER BY seq DESC)tt)"
+                    + "WHERE rn>=? AND rn<=?";
+        this.getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, startNum);
+            pstmt.setInt(2, endNum);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                GuestbookDTO guestbookDTO = new GuestbookDTO();
+                guestbookDTO.setSeq(rs.getInt("seq"));
+                guestbookDTO.setName(rs.getString("name"));
+                guestbookDTO.setEmail(rs.getString("email"));
+                guestbookDTO.setHomepage(rs.getString("homepage"));
+                guestbookDTO.setSubject(rs.getString("subject"));
+                guestbookDTO.setContent(rs.getString("content"));
+                guestbookDTO.setLogTime(rs.getString("logtime"));
+                list.add(guestbookDTO);
+            } 
+        } catch (SQLException e) {
+            list = null;
             e.printStackTrace();
         }finally {
             try {
@@ -73,29 +114,30 @@ public class GuestbookDAO {
                 e.printStackTrace();
             }
         }
+        return list;
     }
-    
-    public ArrayList<GuestbookDTO> selectAll(){
-        ArrayList<GuestbookDTO> list = new ArrayList<GuestbookDTO>();
-        String sql = "SELECT name, email, homepage, content, TO_CHAR(SYSDATE, 'YYYY.MM.DD') AS \"date\""
-                    + " FROM guestbook";
+
+    public int getTotalArticle() {
+        int totalA=0;
+        String sql = "SELECT COUNT(*) FROM guestbook";
         this.getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            while(rs.next()) {
-                GuestbookDTO dto = new GuestbookDTO();
-                dto.setName(rs.getString("name"));
-                dto.setDate(rs.getString("date"));
-                dto.setEmail(rs.getString("email"));
-                dto.setHomepage(rs.getString("homepage"));
-                dto.setContent(rs.getString("content"));
-                list.add(dto);
-            }
+            rs=pstmt.executeQuery();
+            rs.next();
+            totalA = rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+                try {
+                    if(rs!=null) rs.close();
+                    if(pstmt!=null)pstmt.close();
+                    if(conn!=null)conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
         }
-        return list;
+        return totalA;
     }
     
 }

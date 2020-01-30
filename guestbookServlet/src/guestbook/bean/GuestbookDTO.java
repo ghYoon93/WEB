@@ -1,7 +1,23 @@
 package guestbook.bean;
 
 public class GuestbookDTO {
-    String name, email, homepage, subject, content, date;
+    private int seq;
+    private String name, email, homepage, subject, content, logTime;
+
+    
+    
+    
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -23,8 +39,8 @@ public class GuestbookDTO {
         this.content = content;
     }
     
-    public void setDate(String date) {
-        this.date = date;
+    public void setLogTime(String logTime) {
+        this.logTime = logTime;
     }
 
     public String getName() {
@@ -47,8 +63,8 @@ public class GuestbookDTO {
         return content;
     }
 
-    public String getDate() {
-        return date;
+    public String getLogTime() {
+        return logTime;
     }
     
 }

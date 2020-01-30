@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import guestbook.bean.GuestbookDAO;
 import guestbook.bean.GuestbookDTO;
+import guestbook.dao.GuestbookDAO;
 
 @WebServlet("/GuestbookWriteServlet")
 public class GuestbookWriteServlet extends HttpServlet {
@@ -23,21 +23,25 @@ public class GuestbookWriteServlet extends HttpServlet {
 		String homepage = request.getParameterValues("homepage")[0];
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
-		GuestbookDTO dto = new GuestbookDTO();
-		dto.setName(name);
-		dto.setEmail(email);
-		dto.setHomepage(homepage);
-		dto.setSubject(subject);
-		dto.setContent(content);
+		GuestbookDTO guesetbookDTO = new GuestbookDTO();
+		guesetbookDTO.setName(name);
+		guesetbookDTO.setEmail(email);
+		guesetbookDTO.setHomepage(homepage);
+		guesetbookDTO.setSubject(subject);
+		guesetbookDTO.setContent(content);
 		
-		GuestbookDAO dao = GuestbookDAO.getInstance();
-		dao.insert(dto);
+		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
+		guestbookDAO.insert(guesetbookDTO);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
 		out.println("작성하신 글을 저장했습니다.");
+		out.println("<br>");
+		out.println("<br>");
+		out.println("<input type='button' value='글목록' "
+		        + "onclick=location.href='http://localhost:8080/guestbookServlet/GuestbookListServlet?pg=1'");
 		out.println("</body>");
 		out.println("</html>");
 	}

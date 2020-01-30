@@ -1,19 +1,19 @@
 var availableId = "";
 
 function checkWriteForm() {
-	var sName = document.writeForm.name.value;
-	checkName(sName);
+  var sName = document.writeForm.name.value;
+  checkName(sName);
   var sId = document.writeForm.id.value;
   checkId(sId);
   var sPwd = document.writeForm.password.value;
   checkPwd(sPwd);
   var sRepwd = document.writeForm.repwd.value;
   checkPwdEquals(sPwd, sRepwd);
-	checkIdEquals(sId, availableId);
+  checkIdEquals(sId, availableId);
   window.open(""
 			       ,"viewer"
 			       ,"width=300 height=100 left=500 top=100");
-	document.writeForm.target = "viewer";
+  document.writeForm.target = "viewer";
   document.writeForm.submit();
 
 }
@@ -22,9 +22,6 @@ function login(){
 	var sPwd = document.loginForm.password.value;
 	checkId(sId);
 	checkPwd(sPwd);
-	// window.open("http://localhost:8080/memberServlet/LoginServlet"
-	// 		  ,""
-	// 		  ,"width=300 height=100 left=500 top=100");
 	window.open(""
 			  ,"viewer"
 			  ,"width=300 height=100 left=500 top=100");
