@@ -1,5 +1,3 @@
-var availableId = "";
-
 function checkWriteForm() {
   var sName = document.writeForm.name.value;
   checkName(sName);
@@ -8,8 +6,9 @@ function checkWriteForm() {
   var sPwd = document.writeForm.password.value;
   checkPwd(sPwd);
   var sRepwd = document.writeForm.repwd.value;
+  var sAvailableId = document.writeForm.availableId.value;
   checkPwdEquals(sPwd, sRepwd);
-  checkIdEquals(sId, availableId);
+  checkIdEquals(sId, sAvailableId);
   window.open(""
 			       ,"viewer"
 			       ,"width=300 height=100 left=500 top=100");
@@ -30,10 +29,10 @@ function login(){
 }
 
 function checkIdClose(id){
-	availableId = id;
-	opener.writeForm.id.value=availableId;
-	window.close();
+	opener.writeForm.id.value=id;
+	opener.writeForm.availableId.value=id;
 	opener.writeForm.password.focus();
+	window.close();
 }
 
 function checkDuplication(){
@@ -77,8 +76,8 @@ function checkPwdEquals(sPwd, sRepwd) {
 	}
 }
 
-function checkIdEquals(availableId, sId) {
-	if(availableId != sId){
+function checkIdEquals(sAvailableId, sId) {
+	if(sAvailableId != sId){
 		alert("아이디 중복 확인을 하지 않았습니다.");
 		location.history(0);
 	}
