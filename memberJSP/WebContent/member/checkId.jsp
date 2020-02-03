@@ -22,26 +22,26 @@
       <%=result%>
     </div>
     <br>
-    <form method='get' action='http://localhost:8080/memberJSP/member/checkId.jsp'>
+    <form method="get" action="http://localhost:8080/memberJSP/member/checkId.jsp">
       <%
         if(isIdExist){
       %>
             아이디
-      <input type='text' name='id' placeholder='아이디입력'/>
+      <input type="text" name="id" placeholder="아이디입력"/>
       <br>
       <div align="center">
-      <input type='submit' value='중복체크'/>
+      <input type="submit" value="중복체크"/>
       </div>
       <%
         }else {
       %>
       <div align="center">
-        <input type='button' value='사용' onclick="checkIdClose('<%=id%>')"/>
+        <input type="button" value="사용" onclick="checkIdClose('<%=id%>')"/>
       </div>
       <% 	
         }
       %>
     </form>
   </body>
-  <script type='text/javascript' src="http://localhost:8080/memberJSP/js/member.js"></script>
+  <script type="text/javascript" src="http://localhost:8080/memberJSP/js/member.js"></script>
 </html>

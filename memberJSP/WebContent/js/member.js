@@ -16,7 +16,7 @@ function checkWriteForm() {
 		document.writeForm.password.focus();
 	}else if(isValueNotEqual(sPwd, sRepwd)){
 		alert("비밀번호를 재확인해주세요.");
-		document.writeForm.rePwd.focus();
+		document.writeForm.repwd.focus();
 	}else if(isValueNotEqual(sId, sAvailableId)){
 		alert("아이디 중복확인을 해주세요.");
 	}else{
@@ -72,22 +72,11 @@ function checkIdClose(id){
 }
 
 function checkPost(){
-	 new daum.Postcode({
-        oncomplete: function(data) {
-            var roadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 참고 항목 변수
-            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                extraRoadAddr += data.bname;
-            }
-            if(data.buildingName !== '' && data.apartment === 'Y'){
-               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            if(extraRoadAddr !== ''){
-                extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
-            document.getElementById('zipcode').value = data.zonecode;
-            document.getElementById("addr1").value = roadAddr;
-            document.getElementById("addr2").value = data.jibunAddress;
-        }
-    }).open();
+    window.open("checkPost.jsp","","width=400 height=400");	 
+}
+function closeCheckPost(zipcode, addr1){
+	opener.writeForm.zipcode.value = zipcode;
+	opener.writeForm.addr1.value = addr1;
+	window.close();
+	opener.writeForm.add2.focus();
 }
