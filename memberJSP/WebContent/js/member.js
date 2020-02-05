@@ -1,10 +1,10 @@
 function checkWriteForm() {
 	var sName = document.writeForm.name.value;
 	var sId = document.writeForm.id.value;
-	var sPwd = document.writeForm.password.value;
+	var sPwd = document.writeForm.pwd.value;
 	var sRepwd = document.writeForm.repwd.value;
 	var sAvailableId = document.writeForm.availableId.value;
-	
+
 	if(isValueEmpty(sName)){
 		alert("이름을 입력해주세요.");
 		document.writeForm.name.focus();
@@ -13,7 +13,7 @@ function checkWriteForm() {
 		document.writeForm.id.focus();
 	}else if(isValueEmpty(sPwd)){
 		alert("비밀번호를 입력해주세요.");
-		document.writeForm.password.focus();
+		document.writeForm.pwd.focus();
 	}else if(isValueNotEqual(sPwd, sRepwd)){
 		alert("비밀번호를 재확인해주세요.");
 		document.writeForm.repwd.focus();
@@ -24,24 +24,24 @@ function checkWriteForm() {
 		document.writeForm.target="viewer";
 		document.writeForm.submit();
 	}
-	
+
 }
 function login() {
 	var sId = document.loginForm.id.value;
-	var sPwd = document.loginForm.password.value;
+	var sPwd = document.loginForm.pwd.value;
 	if(isValueEmpty(sId)){
 		alert("아이디를 입력해주세요.");
 		document.loginForm.id.focus();
 	}else if(isValueEmpty(sPwd)){
 		alert("비밀번호를 입력해주세요.")
-		document.loginForm.password.focus();
+		document.loginForm.pwd.focus();
 	} else{
-		window.open(""
-				, "viewer"
-				, "width=300 height=100 left=500 top=100");
-		document.loginForm.target = "viewer";
+//		window.open(""
+//				, "viewer"
+//				, "width=300 height=100 left=500 top=100");
+//		document.loginForm.target = "viewer";
 		document.loginForm.submit();
-		
+
 	}
 }
 function isValueEmpty(value){
@@ -63,20 +63,58 @@ function checkId(){
 				  , "width=300 height=100 left=500 top=100");
 	}
 }
+function setAttr(gender, email2, tel1){
+	window.resizeTo(500,480);
+	document.getElementById(gender).checked = true;
+	document.modifyForm.email2.value = email2;
+	document.modifyForm.tel1.value = tel1;
+
+
+}
 
 function checkIdClose(id){
 	opener.writeForm.id.value = id;
 	opener.writeForm.availableId.value = id;
-	opener.writeForm.password.focus();
+	opener.writeForm.pwd.focus();
 	window.close();
 }
+function checkModifyForm(){
+	var sName = document.modifyForm.name.value;
+	var sPwd = document.modifyForm.pwd.value;
+	var sRepwd = document.modifyForm.repwd.value;
 
+	if(isValueEmpty(sName)){
+		alert("이름을 입력해주세요.");
+		document.modifyForm.name.focus();
+	}else if(isValueEmpty(sPwd)){
+		alert("비밀번호를 입력해주세요.");
+		document.modifyForm.pwd.focus();
+	}else if(isValueNotEqual(sPwd, sRepwd)){
+		alert("비밀번호를 재확인해주세요.");
+		document.modifyForm.repwd.focus();
+	}else{
+		document.modifyForm.submit();
+	}
+}
 function checkPost(){
-    window.open("checkPost.jsp","","width=400 height=400");	 
+    window.open("checkPost.jsp","","width=410 height=400");
 }
 function closeCheckPost(zipcode, addr1){
-	opener.writeForm.zipcode.value = zipcode;
-	opener.writeForm.addr1.value = addr1;
+	var form = opener.document.forms[0];
+	form.zipcode.value = zipcode;
+	form.addr1.value = addr1;
 	window.close();
-	opener.writeForm.add2.focus();
+	form.addr2.focus();
+}
+
+function checkBoardWriteForm(){
+	if(document.boardWriteForm.subject.value==""){
+		alert("제목을 입력해주세요.");
+		document.boardWriteForm.subject.focus();
+	}else if(document.boardWriteForm.content.value==""){
+		alert("내용을 입력해주세요.");
+		document.boardWriteForm.content.focus();
+	}else{
+		document.boardWriteForm.submit();		
+	}
 }
