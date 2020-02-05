@@ -12,7 +12,7 @@
   PostDAO postDAO = PostDAO.getInstance();
   List<PostDTO> list = new ArrayList<PostDTO>();
   if(sido != null){
-      if(!sido.equals("")&&!roadname.equals("")){
+      if(sido!=""&&roadname!=""){
       list = postDAO.select(sido, sigungu, roadname);          
       }
   }
@@ -22,10 +22,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <style type="text/css">
-      .label{text-align:center;}
-      td{font-size:10pt;}
-    </style>
+    <link rel="stylesheet" href="../css/member.css">
   </head>
   <body>
     <form action="checkPost.jsp" method="get">
@@ -34,6 +31,7 @@
           <td class=label>시도</td>
           <td>
             <select name="sido">
+              <option value="">시/도 선택</option>
               <option value="서울">서울</option>
               <option value="인천">인천</option>
               <option value="대전">대전</option>
@@ -77,7 +75,7 @@
                                 +postDTO.getBuildingname();
           %>
           <tr>
-          <td class=label><a href="javascript:closeCheckPost('<%=zipcode%>', '<%=addr1%>');"><%=zipcode%></a></td>
+          <td class=label><a class="addressA" href="javascript:closeCheckPost('<%=zipcode%>', '<%=addr1%>');"><%=zipcode%></a></td>
           <td colspan = "3"><%= addr1%></td>
           </tr>
           <%}
