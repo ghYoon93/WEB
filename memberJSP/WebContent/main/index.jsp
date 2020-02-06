@@ -16,6 +16,6 @@
 <a href="../member/modifyForm.jsp">회원정보수정</a><br>
 <%}%>
 <a href="../board/boardWriteForm.jsp">글쓰기</a><br>
-<a href="">목록</a><br>
+<a href="../board/boardList.jsp?pg=1">글목록</a><br>
 </body>
 </html>

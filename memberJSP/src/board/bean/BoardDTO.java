@@ -10,9 +10,10 @@ public class BoardDTO {
     private int ref;
     private int lev;
     private int step;
-    private int peseq;
+    private int pseq;
     private int reply;
-    private int logtime;
+    private String logtime;
+    private int hit;
     public int getSeq() {
         return seq;
     }
@@ -67,11 +68,11 @@ public class BoardDTO {
     public void setStep(int step) {
         this.step = step;
     }
-    public int getPeseq() {
-        return peseq;
+    public int getPseq() {
+        return pseq;
     }
-    public void setPeseq(int peseq) {
-        this.peseq = peseq;
+    public void setPseq(int pseq) {
+        this.pseq = pseq;
     }
     public int getReply() {
         return reply;
@@ -79,12 +80,19 @@ public class BoardDTO {
     public void setReply(int reply) {
         this.reply = reply;
     }
-    public int getLogtime() {
+    public String getLogtime() {
         return logtime;
     }
-    public void setLogtime(int logtime) {
+    public void setLogtime(String logtime) {
         this.logtime = logtime;
     }
+    public int getHit() {
+        return hit;
+    }
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+    
     
 
 }

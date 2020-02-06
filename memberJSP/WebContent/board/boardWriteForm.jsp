@@ -15,7 +15,7 @@ String name = (String) session.getAttribute("memName");
     </style>
   </head>
   <body>
-    <h3>글쓰기<%=id%></h3>
+    <h3>글쓰기</h3>
     <form name="boardWriteForm" action="boardWrite.jsp" method="get">
        <table border=1 cellpadding="3" cellspacing="0">
         <tr>
