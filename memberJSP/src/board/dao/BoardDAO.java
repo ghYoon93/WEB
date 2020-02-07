@@ -9,15 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import board.bean.BoardDTO;
 
 public class BoardDAO {
     private static BoardDAO instance;
     
-    private String driver = "oracle.jdbc.driver.OracleDriver";
-    private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    private String userName = "c##java";
-    private String password = "bit";
+    private DataSource ds;
     
     private Connection conn;
     private PreparedStatement pstmt;
@@ -25,8 +27,9 @@ public class BoardDAO {
     
     public BoardDAO() {
         try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
+            Context ctx = new InitialContext();
+            ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+        } catch (NamingException e) {
             e.printStackTrace();
         }
     }
@@ -42,7 +45,7 @@ public class BoardDAO {
     
     public void getConnection() {
         try {
-            conn = DriverManager.getConnection(url, userName, password);
+            conn = ds.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,8 +54,8 @@ public class BoardDAO {
     public void boardWrite(Map<String, String> map) {
         String sql = "INSERT INTO board(seq, id, name, email, subject, content, ref) "
                          + "VALUES(SEQ_BOARD.NEXTVAL, ?, ?, ?, ?, ?, SEQ_BOARD.NEXTVAL)";
-        getConnection();
         try {
+            conn = ds.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, map.get("id"));
             pstmt.setString(2, map.get("name"));
@@ -77,14 +80,13 @@ public class BoardDAO {
     public int getTotalArticle() {
         int totalA = 0;
         String sql = "SELECT COUNT(*) FROM board";
-        getConnection();
         try {
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             rs.next();
             totalA = rs.getInt(1);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
                 try {
@@ -109,8 +111,8 @@ public class BoardDAO {
                                     + " ORDER BY ref DESC)tt"
                           + ") "
                     + "WHERE rn>=? AND rn<=?";
-        getConnection();
         try {
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, startNum);
             pstmt.setInt(2, endNum);
@@ -148,8 +150,8 @@ public class BoardDAO {
     public BoardDTO viewContent(int seq) {
         BoardDTO boardDTO = new BoardDTO();
         String sql = "SELECT * FROM board WHERE seq=?";
-        getConnection();
         try {
+            conn = ds.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, seq);
             rs = pstmt.executeQuery();

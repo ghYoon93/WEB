@@ -6,25 +6,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import member.bean.MemberDTO;
 
 public class MemberDAO {
     private static MemberDAO instance;
     
-    private String driver = "oracle.jdbc.driver.OracleDriver";
-    private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    private String userName = "c##java";
-    private String password = "bit";
-    
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
     
-    
+    private DataSource ds; 
+            
     public MemberDAO() {
+        Context ctx;
         try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
+        } catch (NamingException e) {
             e.printStackTrace();
         }
     }
@@ -38,17 +41,10 @@ public class MemberDAO {
     	return instance;
     }
     
-    public void getConnection() {
-        try {
-            conn = DriverManager.getConnection(url, userName, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public boolean findMemberById(String id) {
         String sql = "SELECT * FROM member WHERE id=?";
         try {
-            this.getConnection();
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
@@ -72,7 +68,7 @@ public class MemberDAO {
         String sql = "SELECT * FROM member WHERE id = ?";
         MemberDTO memberDTO = new MemberDTO();
         try {
-            this.getConnection();
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
@@ -107,7 +103,7 @@ public class MemberDAO {
     public boolean pwdEquals(String id, String pw) {
         String sql = "SELECT * FROM member WHERE id=? AND pwd=?";
         try {
-            this.getConnection();
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             pstmt.setString(2, pw);
@@ -131,8 +127,8 @@ public class MemberDAO {
     public String getName(String id) {
         String name="";
         String sql = "SELECT name FROM member WHERE id = ?";
-        this.getConnection();
         try {
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
@@ -154,8 +150,8 @@ public class MemberDAO {
 
 	public void write(MemberDTO memberDTO) {
 		String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,?,SYSDATE)";
-		this.getConnection();
         try {
+            conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDTO.getName());
             pstmt.setString(2, memberDTO.getId());
@@ -199,8 +195,8 @@ public class MemberDAO {
 	                          + "addr2 = ?, "
 	                          + "logtime = SYSDATE "
 	                + "WHERE id = ?";
-	    this.getConnection();
 	    try {
+	        conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDTO.getName());
             pstmt.setString(2, memberDTO.getPwd());
