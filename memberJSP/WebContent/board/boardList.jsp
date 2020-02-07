@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="boardDAO" class="board.dao.BoardDAO"/>
-
 <%@ page import="board.bean.BoardDTO" %>
+<%@ page import="board.bean.BoardPaging" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList"%>
 
@@ -10,10 +10,15 @@
 int pg = Integer.parseInt(request.getParameter("pg"));
 int endNum = pg*5;
 int startNum = endNum-4;
-
-int totalA = boardDAO.getTotalArticle();
-int totalP = (totalA+4)/5;
 List<BoardDTO> list = boardDAO.getArticle(startNum, endNum);
+int totalA = boardDAO.getTotalArticle();
+BoardPaging boardPaging = new BoardPaging();
+boardPaging.setCurrentPage(pg);
+boardPaging.setPageBlock(3);
+boardPaging.setPageSize(5);
+boardPaging.setTotalA(totalA);
+
+boardPaging.makePagingHTML();
 %>
 <!DOCTYPE html>
 <html>
@@ -21,8 +26,8 @@ List<BoardDTO> list = boardDAO.getArticle(startNum, endNum);
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-  .currentPaging{color:red; text-decoration:underline;}
-  .paging{color:black; text-decoration:none;}
+  #currentPaging{color:red; text-decoration:underline;}
+  #paging{color:black; text-decoration:none;}
   .logo{width: 50px; height: 50px;}
   .logo img{position: absolute;}
   .content:link{color: black; text-decoration:none;}
@@ -56,15 +61,11 @@ List<BoardDTO> list = boardDAO.getArticle(startNum, endNum);
   <%}
   }%>
 </table> <br>
-<div class="logo" style="border: 1px solid red; display:inline-block; padding: 0px">
+<div class="logo" style="float:left; border: 1px solid red; ">
   <jsp:include page="../main/logo.jsp"/>
 </div>
-<div style="border: 1px solid blue; display:inline-block">
-  <%for(int i=1; i<=totalP; i++){
-      String pageClass = "paging";
-      if(pg==i) pageClass="currentPaging";%>
-      <a class=<%=pageClass%> href="boardList.jsp?pg=<%=i%>">[<%=i%>]</a>
-  <%}%>
+<div style="display:inline-block; text-align:center; float:left; border: 1px;  width:700px ">
+<%=boardPaging.getPagingHTML() %>
 </div>
 </body>
 <script type="text/javascript">
@@ -75,9 +76,6 @@ List<BoardDTO> list = boardDAO.getArticle(startNum, endNum);
 	  }else{
 		  location.href="boardView.jsp?seq="+seq;
 	  }
-	  //}else{
-		//  
-	  //}
   }
 </script>
 </html>
