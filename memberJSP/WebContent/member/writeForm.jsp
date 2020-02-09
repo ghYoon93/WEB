@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>글 작성</title>
     <style>
       .key{width: 70; text-align:center;}
     </style>

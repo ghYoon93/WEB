@@ -5,3 +5,4 @@
 .addressA:active{color: black; text-decoration: none;}
 .addressA:hover{color: green; font-weight: bold;}
 td{font-size:10pt;}
+body{margin:0;}

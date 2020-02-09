@@ -175,4 +175,51 @@ public class BoardDAO {
         
         return boardDTO;
     } // viewContent
+    
+    public void modifyBoard(Map<String, String> map) {
+    	int seq = Integer.parseInt(map.get("seq"));
+    	String subject = map.get("subject");
+    	String content = map.get("content");
+    	String sql="UPDATE board "
+    			+ "    SET subject=?, content=?, logtime=SYSDATE "
+    			  + "WHERE seq=?";
+    	try {
+			conn = ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, seq);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(conn!=null) conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+    } // modifyBoard()
+    
+    public void updateHit(int seq) {
+    	String sql = "Update board "
+    			      + "SET hit=hit+1 "
+    			    + "WHERE seq=?";
+    	try {
+			conn=ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	   }
+    } // updateHit
 }

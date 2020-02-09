@@ -63,13 +63,12 @@ function checkId(){
 				  , "width=300 height=100 left=500 top=100");
 	}
 }
+
 function setAttr(gender, email2, tel1){
 	window.resizeTo(500,480);
 	document.getElementById(gender).checked = true;
 	document.modifyForm.email2.value = email2;
 	document.modifyForm.tel1.value = tel1;
-
-
 }
 
 function checkIdClose(id){
@@ -107,6 +106,7 @@ function closeCheckPost(zipcode, addr1){
 	form.addr2.focus();
 }
 
+
 function checkBoardWriteForm(){
 	if(document.boardWriteForm.subject.value==""){
 		alert("제목을 입력해주세요.");
@@ -118,3 +118,16 @@ function checkBoardWriteForm(){
 		document.boardWriteForm.submit();		
 	}
 }
+
+function checkBoardModifyForm(){
+	if(document.boardModifyForm.subject.value==""){
+		alert("제목을 입력해주세요.");
+		document.boardModifyForm.subject.focus();
+	}else if(document.boardModifyForm.content.value==""){
+		alert("내용을 입력해주세요.");
+		document.boardModifyForm.content.focus();
+	}else{
+		document.boardModifyForm.submit();		
+	}
+}
+

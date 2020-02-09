@@ -7,6 +7,15 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
+Cookie[] cookies = request.getCookies();
+for(int i=0; i<cookies.length; i++){
+	cookies[i].setMaxAge(0);
+	cookies[i].setPath("/");
+	response.addCookie(cookies[i]);
+}
+for(int i = 0; i < cookies.length; i++){
+	System.out.println("list "+cookies[i].getName()+": "+cookies[i].getValue());	
+}
 int pg = Integer.parseInt(request.getParameter("pg"));
 int endNum = pg*5;
 int startNum = endNum-4;
@@ -23,6 +32,9 @@ boardPaging.makePagingHTML();
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Pragma" content="no-cache"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
