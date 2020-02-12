@@ -20,7 +20,7 @@ function checkId(){
 	if(sId=="") 
 		alert("먼저 아이디를 입력하세요");
 	else
-		window.open("checkId.jsp?id="+sId, "", "width=300 height=100 left=500 top=100");
+		window.open("checkId.do?id="+sId, "", "width=600 height=200 left=500 top=100");
 }
 
 function checkIdClose(id){

@@ -80,7 +80,7 @@
 </table>
 </form>
 </body>
-<script type="text/javascript" src="../js/member.js"></script>
+<script type="text/javascript" src="../js/member.js?ver=1"></script>
 </html>
 
 

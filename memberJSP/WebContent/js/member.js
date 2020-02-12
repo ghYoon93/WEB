@@ -53,12 +53,12 @@ function isValueNotEqual(value1, value2){
 	return false;
 }
 
-function checkId(){
+function checkId(form){
 	var sId = document.writeForm.id.value;
 	if(isValueEmpty(sId)){
 		alert("아이디를 먼저 입력해주세요.");
 	} else{
-		window.open("http://localhost:8080/memberJSP/member/checkId.jsp?id="+sId
+		window.open("/member/checkId.do?id="+sId
 				  , ""
 				  , "width=300 height=100 left=500 top=100");
 	}

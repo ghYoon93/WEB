@@ -5,12 +5,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.control.CommandProcess;
 
+import member.bean.MemberDTO;
+import member.dao.MemberDAO;
+
 public class CheckIdAction implements CommandProcess {
 
     @Override
-    public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-        // TODO Auto-generated method stub
-        return null;
+    public String requestPro(HttpServletRequest request, HttpServletResponse response) 
+    		throws Throwable {
+    	String id = request.getParameter("id");
+    	MemberDAO memberDAO = MemberDAO.getInstance();
+    	MemberDTO memberDTO = memberDAO.getMember(id);
+    	request.setAttribute("id", id);
+    	if(memberDTO != null) {
+    		return "/member/checkIdFail.jsp";
+    	}
+        return "/member/checkIdOk.jsp";
     }
 
 }
