@@ -5,9 +5,6 @@
 <%
     request.setCharacterEncoding("UTF-8");
 %>
-<%-- <jsp:useBean id="memberDTO" class="member.bean.MemberDTO" scope="session"></jsp:useBean>
-<jsp:setProperty property="id" name="memberDTO"/>
-<jsp:setProperty property="password" name="memberDTO"/> --%>
 <%@page import="java.net.URLEncoder"%>
 <%
     String id = request.getParameter("id");

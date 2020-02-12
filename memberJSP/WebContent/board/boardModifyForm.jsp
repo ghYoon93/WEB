@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String seq = request.getParameter("seq");
+int seq = Integer.parseInt(request.getParameter("seq"));
+int pg = Integer.parseInt(request.getParameter("pg"));
 String subject = request.getParameter("subject");
 String content = request.getParameter("content");
 %>
@@ -18,12 +19,13 @@ String content = request.getParameter("content");
   </head>
   <body>
     <h3>글 수정</h3>
-    <form name="boardModifyForm" action="boardModify.jsp" method="get">
+    <form name="boardModifyForm" action="boardModify.jsp" method="post">
+       <input type="hidden" name="seq" value=<%=seq%>>
+       <input type="hidden" name="pg" value=<%=pg%>>
        <table border=1 cellpadding="3" cellspacing="0">
         <tr>
         <td class='key'>제목</td>
         <td class='value'>
-          <input type="hidden" name="seq" value=<%=seq%>>
           <input type="text" name="subject"size="50" value=<%=subject%>>
         </td>
       </tr>

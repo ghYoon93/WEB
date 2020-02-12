@@ -7,15 +7,6 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
-Cookie[] cookies = request.getCookies();
-for(int i=0; i<cookies.length; i++){
-	cookies[i].setMaxAge(0);
-	cookies[i].setPath("/");
-	response.addCookie(cookies[i]);
-}
-for(int i = 0; i < cookies.length; i++){
-	System.out.println("list "+cookies[i].getName()+": "+cookies[i].getValue());	
-}
 int pg = Integer.parseInt(request.getParameter("pg"));
 int endNum = pg*5;
 int startNum = endNum-4;
@@ -26,15 +17,22 @@ boardPaging.setCurrentPage(pg);
 boardPaging.setPageBlock(3);
 boardPaging.setPageSize(5);
 boardPaging.setTotalA(totalA);
-
 boardPaging.makePagingHTML();
+if(session.getAttribute("memId")!=null){
+    Cookie[] cookies = request.getCookies();
+    for(int i=0; i<cookies.length; i++){
+        cookies[i].setMaxAge(0);
+        cookies[i].setPath("/");
+        response.addCookie(cookies[i]);
+    }
+    for(int i = 0; i < cookies.length; i++){
+        System.out.println("list "+cookies[i].getName()+": "+cookies[i].getValue());    
+    }
+}
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Cache-Control" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
-<meta http-equiv="Pragma" content="no-cache"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -64,7 +62,7 @@ boardPaging.makePagingHTML();
       <tr>
       <td width="76px" align="center"><%=seq%></td>
       <td width="594px">
-        <a class="content" href="javascript:isLogin(<%=seq%>);"><%=subject%></a>
+        <a class="content" href="javascript:isLogin(<%=seq%>,<%=pg%>);"><%=subject%></a>
       </td>
       <td width="118px"><%=id%></td>
       <td><%=logtime%></td>
@@ -81,12 +79,12 @@ boardPaging.makePagingHTML();
 </div>
 </body>
 <script type="text/javascript">
-  function isLogin(seq) {
+  function isLogin(seq, pg) {
 	  var id = '<%=session.getAttribute("memId")%>';
 	  if(id == 'null') {
 		  alert("로그인을 해주세요.");
 	  }else{
-		  location.href="boardView.jsp?seq="+seq;
+		  location.href="boardView.jsp?seq="+seq+"&pg="+pg;
 	  }
   }
 </script>

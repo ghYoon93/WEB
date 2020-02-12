@@ -6,10 +6,12 @@
 <%
 request.setCharacterEncoding("UTF-8");
 String seq = request.getParameter("seq");
+int pg = Integer.parseInt(request.getParameter("pg"));
 String subject = request.getParameter("subject");
 String content = request.getParameter("content");
 Map<String, String> map = new HashMap<String, String>();
 map.put("seq", seq);
+
 map.put("subject", subject);
 map.put("content", content);
 boardDAO.modifyBoard(map);
@@ -20,6 +22,6 @@ boardDAO.modifyBoard(map);
   </head>
   <body>
 <div align="center">수정 완료</div><br>
-<div align="center"><input type="button" value="글 목록" onclick="location.href='boardList.jsp?pg=1'"/></div>
+<div align="center"><input type="button" value="글 목록" onclick="location.href='boardList.jsp?pg=<%=pg%>'"/></div>
   </body>
 </html>

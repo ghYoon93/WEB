@@ -13,8 +13,10 @@
 </style>
 </head>
 <body>
+  
   <form name="loginForm" method="post"
     action="http://localhost:8080/memberJSP/member/login.jsp">
+    <div align="center">
     <table border="1" cellpadding="10" cellspacing="0">
       <tr>
         <td class=key>아이디</td>
@@ -27,10 +29,11 @@
       <tr>
         <td colspan="2" align="center"><input type="button"
           onclick="login()" value="로그인" /> <input type="button"
-          onclick="location.href='http://localhost:8080/memberJSP/member/writeForm.jsp'"
+          onclick="location.href='mvcMember/member/writeForm.do'"
           value="회원가입" /></td>
       </tr>
     </table>
+  </div>
   </form>
 </body>
 <script type="text/javascript"
