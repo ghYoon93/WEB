@@ -18,9 +18,9 @@ public class CheckIdAction implements CommandProcess {
     	MemberDTO memberDTO = memberDAO.getMember(id);
     	request.setAttribute("id", id);
     	if(memberDTO != null) {
-    		return "/member/checkIdFail.jsp";
+    		return "checkIdFail.jsp";
     	}
-        return "/member/checkIdOk.jsp";
+        return "checkIdOk.jsp";
     }
 
 }

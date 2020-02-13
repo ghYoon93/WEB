@@ -1,5 +1,6 @@
 package member.bean;
 
+
 public class ZipcodeDTO {
 	private String zipcode;
 	private String sido;

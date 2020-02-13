@@ -40,7 +40,7 @@ function checkLoginForm(){
 }
 
 function checkPost(){
-	window.open("checkPost.jsp","","width=400 height=400 scrollbars=yes");
+	window.open("checkPost.do","","width=400 height=400 scrollbars=yes");
 }
 
 function checkModifyForm(){

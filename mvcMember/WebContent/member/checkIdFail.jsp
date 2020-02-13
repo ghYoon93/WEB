@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align="center">
-  ${param.id }은(는) 사용 불가능<br><br>
+  ${requestScope.id }은(는) 사용 불가능<br><br>
   <form name="checkIdForm" method="get" action="checkId.do">
   <input type = text name="id" size="25" placeholder="아이디 입력">
   <input type="button" value="중복체크" onclick="checkId()">
