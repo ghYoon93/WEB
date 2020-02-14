@@ -11,6 +11,6 @@
   <a href="../board/boardWriteForm.do">글쓰기</a>
   <a href="../board/boardList.do?pg=1">목록</a>
   <a href="../imageboard/imageboardWriteForm.do">이미지등록</a>
-  <a href="">이미지목록</a>
+  <a href="../imageboard/imageboardList.do?pg=1">이미지목록</a>
   </c:when>
 </c:choose>

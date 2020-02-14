@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	.td1{
 		text-align: center;
 		width: 80px;
 		height: 30px;
 		}
+    #loginFail{
+    color: red;
+    font-size: 15pt;
+    font-weight: bold;
+    }
 </style>
 
 <div align="center">
@@ -32,7 +38,9 @@
 		</td>
 	</tr>
 </table>
-<div id = loginFail></div>
+<c:if test="${error != null}">
+<div id = loginFail>로그인 실패</div>
+</c:if>
 </form>
 </div>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

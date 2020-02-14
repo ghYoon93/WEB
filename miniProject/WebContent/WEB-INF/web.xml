@@ -7,13 +7,14 @@
     <servlet-class>com.control.ControlServlet</servlet-class>
     <init-param>
       <param-name>propertyConfig</param-name>
-      <!-- <param-value>D:/Users/bitcamp/git/WEB/miniProject/WebContent/WEB-INF/command.properties</param-value> -->
-      <param-value>D:/Java_ee/workspace/miniProject/WebContent/WEB-INF/command.properties</param-value>
+      <param-value>D:/Users/bitcamp/git/WEB/miniProject/WebContent/WEB-INF/command.properties</param-value>
+      <!-- <param-value>D:/Java_ee/workspace/miniProject/WebContent/WEB-INF/command.properties</param-value> -->
     </init-param>
   </servlet>
     
   <servlet-mapping>
     <servlet-name>ControlServlet</servlet-name>
+    <!-- <url-pattern>/</url-pattern> -->
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
