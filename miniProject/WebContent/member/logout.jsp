@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align="center">로그아웃되었습니다.<br><br>
-<input type="button" value="로그인" onclick="location.href='loginForm.do'">
+<input type="button" value="로그인" onclick="location.href='../member/loginForm.do'">
 </div>
 </body>
 </html>

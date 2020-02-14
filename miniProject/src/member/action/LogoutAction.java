@@ -15,7 +15,8 @@ public class LogoutAction implements CommandProcess {
         session.removeAttribute("memId");
         session.removeAttribute("memEmail");
         session.invalidate();
-        return "logout.jsp";
+//        request.setAttribute("display", "/member/logout.jsp");
+        return "/main/index.do";
     }
 
 }
