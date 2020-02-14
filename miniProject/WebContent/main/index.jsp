@@ -15,8 +15,9 @@
     <td colspan="2" align="center"><jsp:include page="../template/top.jsp"/></td>
   </tr>
   <tr>
-    <td width="30%"><jsp:include page="../template/left.jsp"/></td>
-    <td align="center"><jsp:include page="../template/body.jsp"/></td>
+    <td width="20%"><jsp:include page="../template/left.jsp"/></td>
+    <%-- <td align="center"><jsp:include page="../template/body.jsp"/></td> --%>
+    <td align="center"><jsp:include page="${display }"/></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><jsp:include page="../template/bottom.jsp"/></td>
