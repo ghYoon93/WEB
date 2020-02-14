@@ -38,7 +38,8 @@ public class WriteAction implements CommandProcess{
         memberDTO.setAddr1(addr1);
         memberDTO.setAddr2(addr2);
         int su = memberDAO.write(memberDTO);
-        return "write.jsp";
+        request.setAttribute("display", "/member/write.jsp");
+        return "/main/index.jsp";
     }
 
 }
