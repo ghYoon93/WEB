@@ -39,7 +39,7 @@
 	</div>
 <script type="text/javascript">
   function isLogin(id, seq, pg) {
-      if(id == 'null') {
+      if(id == '') {
           alert("로그인을 해주세요.");
       }else{
           location.href="boardView.do?seq="+seq+"&pg="+pg;

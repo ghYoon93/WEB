@@ -29,10 +29,7 @@ public class ImageboardWriteAction implements CommandProcess{
         int imagePrice = Integer.parseInt(multi.getParameter("imagePrice"));
         int imageQty = Integer.parseInt(multi.getParameter("imageQty"));
         String imageContent = multi.getParameter("imageContent");
-        String originalFileName = multi.getOriginalFileName("image1");
-        String image1 = originalFileName;
-        
-        File file = multi.getFile("image1");
+        String image1= multi.getFilesystemName("image1");
         
         ImageDTO imageDTO = new ImageDTO();
         imageDTO.setImageId(imageId);
