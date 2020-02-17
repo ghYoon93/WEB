@@ -28,8 +28,8 @@
 		<tr>
 			<td width="76px" align="center">${imageDTO.seq }</td>
 			<td ><img class="content" src="../storage/${imageDTO.image1 }" onclick="isLogin('${memId }', '${imageDTO.seq }', '${boardPaging.currentPage }')"></td>
-			<td width="118px">${imageDTO.imageName }</td>
-			<td><fmt:formatNumber type="number" value = "${imageDTO.imagePrice }" pattern="#,###"/></td>
+			<td width="118px" align="center">${imageDTO.imageName }</td>
+			<td align= "center"><fmt:formatNumber type="number" value = "${imageDTO.imagePrice }" pattern="#,###"/></td>
 			<td width="68px" align="center"><fmt:formatNumber type="number" value = "${imageDTO.imageQty }" pattern="#,###"/></td>
 			<td width="68px" align="center"><fmt:formatNumber type="number" value = "${imageDTO.imagePrice*imageDTO.imageQty }" pattern="#,###"/> </td>
 		</tr>

@@ -31,13 +31,10 @@ public class LoginAction implements CommandProcess {
             request.setAttribute("display", "../template/body.jsp");
             if(request.getAttribute("error")!=null) {
                 request.removeAttribute("error");
-                System.out.println("메세지 삭제");
             }
             System.out.println(request.getAttribute("error"));
-            System.out.println("메세지 삭제 X");
             return "/main/index.jsp";
         }else {
-//            request.setAttribute("display", "/member/loginFail.jsp");
               request.setAttribute("error", "error");
               request.setAttribute("display", "../template/body.jsp");
             return "/main/index.jsp";

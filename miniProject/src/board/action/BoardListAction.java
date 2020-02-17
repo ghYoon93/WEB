@@ -18,12 +18,17 @@ public class BoardListAction implements CommandProcess {
     @Override
     public String requestPro(HttpServletRequest request, HttpServletResponse response) 
             throws Throwable {
+        // 데이터
         int pg = Integer.parseInt(request.getParameter("pg")); 
+        
+        // DB
         int endNum = pg*5; 
         int startNum = endNum-4;
         BoardDAO boardDAO = BoardDAO.getInstance(); 
         List<BoardDTO> list = boardDAO.boardList(startNum, endNum);
         int totalA = boardDAO.getBoardTotalA();
+        
+        // 응답
         BoardPaging boardPaging = new BoardPaging();
         boardPaging.setCurrentPage(pg);
         boardPaging.setPageBlock(3);
