@@ -20,7 +20,7 @@
         <tr>
           <td align="center">아이디</td>
           <td>
-            <input type="text" name="id" id="loginId" size="25" placeholder="아이디 입력"> 
+            <input type="text" name="id" id="writeId" size="25" placeholder="아이디 입력"> 
             <input type="button" value="중복체크" onclick="checkId()"> 
             <input type="hidden" name="check" value="">
             <div id="idDiv"></div></td>
@@ -28,7 +28,7 @@
         <tr>
           <td align="center">비밀번호</td>
           <td>
-            <input type="password" name="pwd" id="loginPwd" size="30">
+            <input type="password" name="pwd" id="writePwd" size="30">
             <div id="pwdDiv"></div>
           </td>
         </tr>

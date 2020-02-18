@@ -1,5 +1,8 @@
 package member.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,10 +19,12 @@ public class LoginAction implements CommandProcess {
             throws Throwable {
         String id = request.getParameter("id");
         String pwd = request.getParameter("pwd");
-        
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("id",id);
+        map.put("pwd",pwd);
         //DB
         MemberDAO memberDAO = MemberDAO.getInstance();
-        MemberDTO memberDTO = memberDAO.login(id, pwd);
+        MemberDTO memberDTO = memberDAO.login(map);
         
         //응답
         if(memberDTO!=null) {
