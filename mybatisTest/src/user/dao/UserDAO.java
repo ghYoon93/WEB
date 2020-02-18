@@ -69,10 +69,7 @@ public class UserDAO {
         sqlSession.commit();
         sqlSession.close();
     }
-    public List<UserDTO> userSearch(String colName, String value) {
-        ParamDTO paramDTO = new ParamDTO();
-        paramDTO.setColName(colName);
-        paramDTO.setValue(value);
+    public List<UserDTO> userSearch(ParamDTO paramDTO) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<UserDTO> list= sqlSession.selectList("userSQL.userSearch", paramDTO);
         sqlSession.commit();

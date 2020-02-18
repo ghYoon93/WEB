@@ -24,13 +24,6 @@
     DELETE FROM usertable WHERE id=#{id}
   </delete>
   <select id="userSearch" parameterType="param.bean.ParamDTO" resultMap="user">
-    SELECT * FROM usertable WHERE
-    <if test="colName == 'id'">
-      id 
-    </if>
-    <if test="colName == 'name'">
-      name
-    </if>
-    LIKE '%'||#{value}||'%'
+    SELECT * FROM usertable WHERE ${colName} LIKE '%'||#{value}||'%'
   </select>
 </mapper>
