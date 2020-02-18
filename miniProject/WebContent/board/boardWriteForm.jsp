@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <h2>글쓰기</h2>
 <form name="boardWriteForm" method="post" action="boardWrite.do">
-<table border="1">
+<table border="1" cellpadding="3" cellspacing="0">
 	<tr>
 		<td width="70" align="center">제목</td>
 		<td>

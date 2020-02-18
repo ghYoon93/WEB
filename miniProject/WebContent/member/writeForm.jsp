@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-</head>
-<body>
   <div align="center">
     <form name="writeForm" method="post" action="write.do">
       <h2>회원가입</h2>
@@ -84,10 +79,9 @@
       </table>
     </form>
   </div>
-</body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/member.js?ver=1"></script>
-</html>
+
 
 
 

@@ -33,6 +33,7 @@
     </tr>
 </table>
 <input type="button" value="목록" onclick="location.href='boardList.do?pg=${pg }'">
+<input type="button" value="답글" onclick="location.href='boardReplyForm.do?seq=${seq}&pg=${pg }'">
 <c:if test="${memId.equals(boardDTO.id) }">
     <input type="button" value="글수정" onclick="mode(1)">
     <input type="button" value="글삭제" onclick="mode(2)">
