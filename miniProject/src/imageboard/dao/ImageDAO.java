@@ -1,21 +1,32 @@
 package imageboard.dao;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import board.bean.BoardDTO;
 import imageboard.bean.ImageDTO;
 
 public class ImageDAO {
     private static ImageDAO instance;
+
+    private static SqlSessionFactory sqlSessionFactory;
     
     private Connection conn;
     private ResultSet rs;
@@ -33,81 +44,29 @@ public class ImageDAO {
     
     public ImageDAO() {
         try {
-            Context ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");//Tomcat의 경우
-        } catch (NamingException e) {
+            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void write(ImageDTO imageDTO) {
-        String sql = "INSERT INTO imageboard VALUES(seq_imageboard.NEXTVAL, "
-                                                 + "?, "
-                                                 + "?, "
-                                                 + "?, "
-                                                 + "?, "
-                                                 + "?, "
-                                                 + "?, "
-                                                 + "SYSDATE)";
-        try {
-            conn = ds.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, imageDTO.getImageId());
-            pstmt.setString(2, imageDTO.getImageName());
-            pstmt.setInt(3, imageDTO.getImagePrice());
-            pstmt.setInt(4, imageDTO.getImageQty());
-            pstmt.setString(5, imageDTO.getImageContent());
-            pstmt.setString(6, imageDTO.getImage1());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                if(pstmt!=null) pstmt.close();
-                if(conn!=null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.insert("imageSQL.write", imageDTO);
+        sqlSession.commit();
+        sqlSession.close();
     }
 
-    public List<ImageDTO> imageboardList(int startNum, int endNum) {
+    public List<ImageDTO> imageboardList(Map<String,Integer> map) {
         List<ImageDTO> list = new ArrayList<ImageDTO>();
         String sql = "SELECT * FROM"
                      + "(SELECT ROWNUM rn, tt.* FROM  "
                        + "(SELECT * FROM imageboard ORDER BY seq DESC)tt"
                 + ")where rn>=? and rn<=?";
-        try {
-            conn = ds.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, startNum);
-            pstmt.setInt(2, endNum);
-            rs = pstmt.executeQuery();
-            while(rs.next()) {
-                ImageDTO imageDTO = new ImageDTO();
-                imageDTO.setSeq(rs.getInt("seq"));
-                imageDTO.setImageId(rs.getString("imageId"));
-                imageDTO.setImageName(rs.getString("imageName"));
-                imageDTO.setImagePrice(rs.getInt("imagePrice"));
-                imageDTO.setImageQty(rs.getInt("imageQty"));
-                imageDTO.setImageContent(rs.getString("imageContent"));
-                imageDTO.setImage1(rs.getString("image1"));
-                imageDTO.setLogtime(rs.getString("logtime"));
-                list.add(imageDTO);
-            }
-        } catch (SQLException e) {
-            list = null;
-            e.printStackTrace();
-        }finally {
-            try {
-                if(rs!=null) rs.close();
-                if(pstmt!=null) pstmt.close();
-                if(conn!=null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        list = sqlSession.selectList("imageboardSQL.imageboardList", map);
+        sqlSession.close();
         return list;
     }
 

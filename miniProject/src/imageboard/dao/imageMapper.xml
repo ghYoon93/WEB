@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="imageSQL">
+  <resultMap type="imageboard.bean.ImageDTO" id="image">
+    <result property="seq" column="SEQ"/>
+    <result property="imageId" column="IMAGEID"/>
+    <result property="imageName" column="IMAGENAME"/>
+    <result property="imagePrice" column="IMAGEPRICE"/>
+    <result property="imageQty" column="IMAGEQTY"/>
+    <result property="imageContent" column="IMAGECONTENT"/>
+    <result property="image1" column="IMAGE1"/>
+    <result property="logtime" column="LOGTIME"/>
+  </resultMap>
+  <insert id="write" parameterType="image">
+    INSERT INTO imageboard VALUES(seq_imageboard.NEXTVAL,
+                                  #{imageId}, 
+                                  #{imageName}, 
+                                  #{imagePrice}, 
+                                  #{imageQty}, 
+                                  #{imageContent}, 
+                                  #{image1},                                   
+                                  SYSDATE)
+  </insert>
+  <select id="imageboardList" parameterType="java.util.Map" resultMap="image">
+    SELECT * 
+      FROM (SELECT ROWNUM rn, 
+                   tt.* 
+              FROM (SELECT * 
+                      FROM imageboard 
+                     ORDER BY seq DESC)tt)
+             WHERE rn <![CDATA[>=]]> #{startNum}
+                   AND rn <![CDATA[<=]]>#{endNum}
+  </select>
+</mapper>
