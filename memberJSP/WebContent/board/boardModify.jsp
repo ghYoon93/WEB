@@ -11,7 +11,6 @@ String subject = request.getParameter("subject");
 String content = request.getParameter("content");
 Map<String, String> map = new HashMap<String, String>();
 map.put("seq", seq);
-
 map.put("subject", subject);
 map.put("content", content);
 boardDAO.modifyBoard(map);
