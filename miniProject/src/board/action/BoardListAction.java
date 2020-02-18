@@ -1,6 +1,8 @@
 package board.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +26,11 @@ public class BoardListAction implements CommandProcess {
         // DB
         int endNum = pg*5; 
         int startNum = endNum-4;
+        Map<String,Integer> map = new HashMap<>();
+        map.put("startNum", startNum);
+        map.put("endNum", endNum);
         BoardDAO boardDAO = BoardDAO.getInstance(); 
-        List<BoardDTO> list = boardDAO.boardList(startNum, endNum);
+        List<BoardDTO> list = boardDAO.boardList(map);
         int totalA = boardDAO.getBoardTotalA();
         
         // 응답
