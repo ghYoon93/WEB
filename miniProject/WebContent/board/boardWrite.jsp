@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <div align = "center">
 글 작성 완료<br><br>
-<input type="button" value="글 목록" onclick="location.href=''">
+<input type="button" value="글 목록" onclick="location.href='../board/boardList.do?pg=${pg }'">
 </div>

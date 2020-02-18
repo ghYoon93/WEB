@@ -147,6 +147,16 @@ $('#imageboardFormBtn').click(function(){
 	}
 });
 
+function checkBoardModifyForm(){
+	//유효성 체크
+	if(document.boardModifyForm.subject.value=="")
+		alert("제목 입력하세요");
+	else if(document.boardModifyForm.content.value=="")	
+		alert("비밀번호를 입력하세요");
+	else
+		document.boardModifyForm.submit();
+}
+
 
 
 

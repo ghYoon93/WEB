@@ -43,7 +43,7 @@
 function mode(num){
     if(num==1){
         document.boardViewForm.method = 'post';
-        document.boardViewForm.action = 'boardModifyForm.jsp';
+        document.boardViewForm.action = 'boardModifyForm.do';
         document.boardViewForm.submit();
         
     }else if(num==2){
