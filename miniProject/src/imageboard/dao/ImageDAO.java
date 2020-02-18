@@ -60,40 +60,17 @@ public class ImageDAO {
 
     public List<ImageDTO> imageboardList(Map<String,Integer> map) {
         List<ImageDTO> list = new ArrayList<ImageDTO>();
-        String sql = "SELECT * FROM"
-                     + "(SELECT ROWNUM rn, tt.* FROM  "
-                       + "(SELECT * FROM imageboard ORDER BY seq DESC)tt"
-                + ")where rn>=? and rn<=?";
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        list = sqlSession.selectList("imageboardSQL.imageboardList", map);
+        list = sqlSession.selectList("imageSQL.imageboardList", map);
         sqlSession.close();
         return list;
     }
 
-    public int getBoardTotalA() {
-        int totalA=0;
-        String sql = "select count(*) from imageboard";
-        
-        try {
-            conn = ds.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            
-            rs.next();
-            totalA = rs.getInt(1);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            try{
-                if(rs!=null) rs.close();
-                if(pstmt!=null) pstmt.close();
-                if(conn!=null) conn.close();
-                 
-            }catch(SQLException e){
-                e.printStackTrace();
-            }
-         }
+    public int getImageBoardTotalA() {
+    	int totalA=0;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+        totalA = sqlSession.selectOne("imageSQL.getImageBoardTotalA");
+        sqlSession.close();
         
         return totalA;
     }

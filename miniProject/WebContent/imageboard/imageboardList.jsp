@@ -36,8 +36,8 @@
         </c:forEach>
     </c:if>
 	</table>
-	<div align="center" style="display:inline-block; text-align:center; float:left; border: 1px;  width:700px ">
-        ${boardPaging.pagingHTML }
+	<div align="center" style="display:inline-block; border: 1px;  width:700px ">
+        ${imageBoardPaging.pagingHTML }
 	</div>
 <script type="text/javascript">
   function isLogin(id, seq, pg) {

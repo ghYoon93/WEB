@@ -33,4 +33,7 @@
              WHERE rn <![CDATA[>=]]> #{startNum}
                    AND rn <![CDATA[<=]]>#{endNum}
   </select>
+  <select id="getImageBoardTotalA" resultType="int">
+    SELECT COUNT(*) FROM imageboard
+  </select>
 </mapper>

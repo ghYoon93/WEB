@@ -1,6 +1,8 @@
 package imageboard.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
-import board.bean.BoardPaging;
+import imageboard.bean.ImageBoardPaging;
 import imageboard.bean.ImageDTO;
 import imageboard.dao.ImageDAO;
 
@@ -18,18 +20,21 @@ public class ImageboardListAction implements CommandProcess {
             throws Throwable {
     	String path = request.getServletContext().getRealPath("/storage");
         int pg = Integer.parseInt(request.getParameter("pg")); 
-        int endNum = pg*5; 
-        int startNum = endNum-4;
+        int endNum = pg*3; 
+        int startNum = endNum-2;
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startNum", startNum);
+        map.put("endNum", endNum);
         ImageDAO imageDAO = ImageDAO.getInstance();
-        List<ImageDTO> list = imageDAO.imageboardList(startNum, endNum);
-        int totalA = imageDAO.getBoardTotalA();
-        BoardPaging boardPaging = new BoardPaging();
-        boardPaging.setCurrentPage(pg);
-        boardPaging.setPageBlock(3);
-        boardPaging.setPageSize(5);
-        boardPaging.setTotalA(totalA);
+        List<ImageDTO> list = imageDAO.imageboardList(map);
+        int totalA = imageDAO.getImageBoardTotalA();
+        ImageBoardPaging imageBoardPaging = new ImageBoardPaging();
+        imageBoardPaging.setCurrentPage(pg);
+        imageBoardPaging.setPageBlock(3);
+        imageBoardPaging.setPageSize(3);
+        imageBoardPaging.setTotalA(totalA);
         
-        boardPaging.makePagingHTML();
+        imageBoardPaging.makePagingHTML();
 
         HttpSession session = request.getSession();
         if(session.getAttribute("memId")!=null) {
@@ -39,7 +44,7 @@ public class ImageboardListAction implements CommandProcess {
         }
         request.setAttribute("path", path);
         request.setAttribute("list", list);
-        request.setAttribute("boardPaging", boardPaging);
+        request.setAttribute("imageBoardPaging", imageBoardPaging);
         request.setAttribute("display", "/imageboard/imageboardList.jsp?pg="+pg);
  
         return "/main/index.jsp";
