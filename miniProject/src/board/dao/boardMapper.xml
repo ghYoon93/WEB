@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardSQL">
+  <resultMap type="board.bean.BoardDTO" id="board">
+    <result property="seq" column="SEQ"/>
+    <result property="id" column="ID"/>
+    <result property="name" column="NAME"/>
+    <result property="email" column="EMAIL"/>
+    <result property="subject" column="SUBJECT"/>
+    <result property="content" column="CONTENT"/>
+    <result property="ref" column="REF"/>
+    <result property="lev" column="LEV"/>
+    <result property="step" column="STEP"/>
+    <result property="pseq" column="PSEQ"/>
+    <result property="reply" column="REPLY"/>
+    <result property="logtime" column="LOGTIME"/>
+    <result property="hit" column="HIT"/>
+  </resultMap>
+  <insert id="boardWrite" parameterType="java.util.Map">
+    INSERT INTO board(seq, id, name, email, subject, content, ref)
+         VALUES(seq_board.NEXTVAL, #{id}, #{name}, #{email}, #{subject}, #{content}, seq_board.CURRVAL)
+  </insert>
+  <select id="boardList" parameterType="java.util.Map" resultMap="board">
+  
+    SELECT * 
+      FROM (SELECT ROWNUM rn, 
+                   tt.* 
+              FROM (SELECT * 
+                      FROM board 
+                     ORDER BY ref DESC)tt)
+             WHERE rn <![CDATA[>=]]> #{startNum}
+                   AND rn <![CDATA[<=]]>#{endNum}
+  </select>
+  <select id="getBoard" parameterType="int" resultMap="board">
+    SELECT * FROM board WHERE seq = #{seq} 
+  </select>
+  <select id="getBoardTotalA" resultType="int">
+    SELECT COUNT(*) FROM BOARD
+  </select>
+  <update id="boardModify" parameterType="java.util.Map">
+    UPDATE board SET subject=#{subject}, 
+                     content=#{content}, 
+                     logtime=SYSDATE 
+     WHERE seq=#{seq}
+  </update>
+  <update id="boardHit" parameterType="int">
+    UPDATE board SET hit=hit+1 WHERE seq=#{seq}
+  </update>
+</mapper>
