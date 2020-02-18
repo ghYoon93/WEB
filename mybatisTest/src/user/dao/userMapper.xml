@@ -26,4 +26,5 @@
   <select id="userSearch" parameterType="param.bean.ParamDTO" resultMap="user">
     SELECT * FROM usertable WHERE ${colName} LIKE '%'||#{value}||'%'
   </select>
+  
 </mapper>

@@ -1,7 +1,5 @@
 package com.mybatis.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.Reader;
 
 import org.apache.ibatis.io.Resources;

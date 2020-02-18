@@ -23,7 +23,6 @@
          VALUES(seq_board.NEXTVAL, #{id}, #{name}, #{email}, #{subject}, #{content}, seq_board.CURRVAL)
   </insert>
   <select id="boardList" parameterType="java.util.Map" resultMap="board">
-  
     SELECT * 
       FROM (SELECT ROWNUM rn, 
                    tt.* 
