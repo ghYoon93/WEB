@@ -28,11 +28,6 @@ public class ImageDAO {
 
     private static SqlSessionFactory sqlSessionFactory;
     
-    private Connection conn;
-    private ResultSet rs;
-    private PreparedStatement pstmt;
-    private DataSource ds;
-    
     public static ImageDAO getInstance() {
         if(instance==null) {
             synchronized (ImageDAO.class) {
@@ -73,6 +68,22 @@ public class ImageDAO {
         sqlSession.close();
         
         return totalA;
+    }
+
+    public ImageDTO getImageBoard(int seq) {
+        ImageDTO imageDTO = new ImageDTO();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        imageDTO = sqlSession.selectOne("imageSQL.getImageBoard", seq);
+        sqlSession.close();
+        return imageDTO;
+    }
+
+    public void delete(String[] list) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.delete("imageSQL.delete",list);
+        sqlSession.commit();
+        sqlSession.close();
+        
     }
     
 }

@@ -9,9 +9,9 @@ public class BoardReplyFormAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		int seq = Integer.parseInt(request.getParameter("seq"));
+		int pseq = Integer.parseInt(request.getParameter("pseq"));
 		int pg = Integer.parseInt(request.getParameter("pg"));
-		request.setAttribute("seq", seq);
+		request.setAttribute("pseq", pseq);
 		request.setAttribute("pg", pg);
 		request.setAttribute("display", "/board/boardReplyForm.jsp");
 		return "/main/index.jsp";
