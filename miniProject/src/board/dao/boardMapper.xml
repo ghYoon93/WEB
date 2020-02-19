@@ -67,7 +67,7 @@
     UPDATE board SET reply=reply+1 WHERE seq = #{seq}
   </update>
   <update id="boardDelete1" parameterType="int">
-    UPDATE board SET pseq = -1 WHERE pseq= #{seq}
+    UPDATE board SET subject="[원글이 삭제된 답글] "||subject pseq = -1, step=step-1 WHERE pseq= #{seq}
   </update>
   <update id="boardDelete2" parameterType="int">
     UPDATE board SET reply=reply-1 
