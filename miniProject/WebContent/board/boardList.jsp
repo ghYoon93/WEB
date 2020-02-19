@@ -25,7 +25,17 @@
 		<tr>
 			<td width="76px" align="center">${boardDTO.seq }</td>
 			<td width="594px">
+                <c:forEach var="i" begin="1" end="${boardDTO.lev }">
+                  &emsp;
+                </c:forEach>
+                <c:if test="${boardDTO.pseq != 0 }">
+                <img  src="../image/reply.gif">
+                </c:if>
+                
                 <a class="content" href="javascript:isLogin('${sessionScope.memId }','${boardDTO.seq }','${boardPaging.currentPage }');" id="subject">
+                 <c:if test="${boardDTO.pseq==-1 }">
+                     [원글이 삭제된 답글]
+                 </c:if>
                  ${boardDTO.subject }</a></td>
 			<td width="118px">${boardDTO.id }</td>
 			<td>${boardDTO.logtime }</td>

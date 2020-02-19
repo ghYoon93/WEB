@@ -18,33 +18,63 @@
     <result property="logtime" column="LOGTIME"/>
     <result property="hit" column="HIT"/>
   </resultMap>
+  
   <insert id="boardWrite" parameterType="java.util.Map">
     INSERT INTO board(seq, id, name, email, subject, content, ref)
          VALUES(seq_board.NEXTVAL, #{id}, #{name}, #{email}, #{subject}, #{content}, seq_board.CURRVAL)
   </insert>
+  
   <select id="boardList" parameterType="java.util.Map" resultMap="board">
     SELECT * 
       FROM (SELECT ROWNUM rn, 
                    tt.* 
               FROM (SELECT * 
                       FROM board 
-                     ORDER BY ref DESC)tt)
+             ORDER BY ref DESC, step ASC)tt)
              WHERE rn <![CDATA[>=]]> #{startNum}
                    AND rn <![CDATA[<=]]>#{endNum}
   </select>
+  
   <select id="getBoard" parameterType="int" resultMap="board">
     SELECT * FROM board WHERE seq = #{seq} 
   </select>
+  
   <select id="getBoardTotalA" resultType="int">
     SELECT COUNT(*) FROM BOARD
   </select>
+  
   <update id="boardModify" parameterType="java.util.Map">
     UPDATE board SET subject=#{subject}, 
                      content=#{content}, 
                      logtime=SYSDATE 
      WHERE seq=#{seq}
   </update>
+  
   <update id="boardHit" parameterType="int">
     UPDATE board SET hit=hit+1 WHERE seq=#{seq}
   </update>
+  
+  <update id="boardReply1" parameterType="board">
+    UPDATE board SET step=step+1 WHERE ref=#{ref} AND step>#{step}
+  </update>
+  
+  <insert id="boardReply2" parameterType="java.util.Map">
+    INSERT INTO board(seq, id, name, email, subject, content, ref, lev, step, pseq)
+         VALUES(seq_board.NEXTVAL, #{id}, #{name}, #{email}, #{subject}, #{content}, #{ref}, #{lev}, #{step}, #{pseq})
+         
+  </insert>
+  <update id="boardReply3" parameterType="String">
+    UPDATE board SET reply=reply+1 WHERE seq = #{seq}
+  </update>
+  <update id="boardDelete1" parameterType="int">
+    UPDATE board SET pseq = -1 WHERE pseq= #{seq}
+  </update>
+  <update id="boardDelete2" parameterType="int">
+    UPDATE board SET reply=reply-1 
+     WHERE seq IN(SELECT pseq 
+                    FROM board WHERE pseq=#{seq})
+  </update>
+  <delete id = "boardDelete3" parameterType="int">
+    DELETE FROM board WHERE seq=#{seq}
+  </delete>
 </mapper>

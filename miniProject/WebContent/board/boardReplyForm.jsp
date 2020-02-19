@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <h2>답글</h2>
 <form name="boardReplyForm" method="post" action="boardReply.do">
-<input type = "hidden" name = "seq" value="${seq }">
-<input type = "hidden" name = "pg" value="${pg }">
+  <input type = "hidden" name = "pseq" value="${pseq }">
+  <input type = "hidden" name = "pg" value="${pg }">
 <table border="1" cellpadding="3" cellspacing="0">
 	<tr>
 		<td width="70" align="center">제목</td>
@@ -22,10 +22,10 @@
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
-		  <input type="button" id="boardReplyFormBtn"value="답글 쓰기">
+		  <input type="button" id="boardFormBtn"value="답글 쓰기">
 		</td>
 	</tr>
 </table>
 </form>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/member.js?ver=1"></script>
+<script type="text/javascript" src="../js/board.js"></script>

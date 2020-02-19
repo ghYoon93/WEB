@@ -38,7 +38,7 @@ public class BoardDAO {
 	public static BoardDAO getInstance() {
         if(instance == null) {
             synchronized (BoardDAO.class) {
-                instance = new BoardDAO();                
+                instance = new BoardDAO();
             }
         }
         return instance;
@@ -85,6 +85,36 @@ public class BoardDAO {
         sqlSession.commit();
         sqlSession.close();
 	}
+    public void boardReply(Map<String, String> map) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BoardDTO pDTO = sqlSession.selectOne("boardSQL.getBoard",Integer.parseInt(map.get("pseq"))); // 원글
+        
+        //글 순서
+        sqlSession.update("boardSQL.boardReply1", pDTO);
+        //답글 쓰기
+        int ref = pDTO.getRef();
+        int lev = pDTO.getLev()+1;
+        int step = pDTO.getStep()+1;
+        map.put("ref", ref+"");
+        map.put("lev", lev+"");
+        map.put("step", step+"");
+        sqlSession.insert("boardSQL.boardReply2", map);
+        //답글 수
+        sqlSession.update("boardSQL.boardReply3",map.get("pseq"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    public void boardDelete(int seq) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //pseq 업데이트
+        sqlSession.update("boardSQL.boardDelete1",seq);
+        //reply 업데이트
+        sqlSession.update("boardSQL.boardDelete2", seq);
+        //글 삭제
+        sqlSession.delete("boardSQL.boardDelete3",seq);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }
 
 

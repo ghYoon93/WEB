@@ -10,6 +10,12 @@ public class BoardWriteFormAction implements CommandProcess{
     @Override
     public String requestPro(HttpServletRequest request, HttpServletResponse response) 
             throws Throwable {
+//        int seq = Integer.parseInt(request.getParameter("seq"));
+//        int pg = Integer.parseInt(request.getParameter("pg"));
+//        
+//        request.setAttribute("seq", seq);
+//        request.setAttribute("pg", pg);
+        
         request.setAttribute("display", "/board/boardWriteForm.jsp");
         return "/main/index.jsp";
     }

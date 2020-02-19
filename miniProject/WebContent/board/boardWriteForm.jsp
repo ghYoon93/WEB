@@ -6,36 +6,24 @@
 	<tr>
 		<td width="70" align="center">제목</td>
 		<td>
-			<input type="text" placeholder="제목을 입력하시오" name="subject" size="50">
+			<input type="text" id="subject" name="subject" placeholder="제목을 입력하시오" size="50">
+             <div id="subjectDiv"></div>
 		</td>
 	</tr>
 
 	<tr>
 		<td align="center" width="70">내용</td>
 		<td>
-			<textarea placeholder="내용을 입력하시오" name="content" rows="15" cols="40"></textarea>
+			<textarea id="content" name="content"  placeholder="내용을 입력하시오" rows="15" cols="40"></textarea>
+            <div id="contentDiv"></div>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
-		<input type="button" value="글쓰기" onclick="checkBoardWriteForm()"> 
+		<input type="button" id="boardFormBtn" value="글쓰기" > 
 		<input type="reset" value="다시작성"></td>
 	</tr>
 </table>
 </form>
-<script type="text/javascript">
-function checkBoardWriteForm() {
-	if (document.boardWriteForm.subject.value=="")
-		alert("제목을 입력하세요.");
-	else if (document.boardWriteForm.content.value=="")
-		alert("내용을 입력하세요.");
-	else
-		document.boardWriteForm.submit();
-}
-</script>
-
-
-
-
-
-
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/board.js"></script>
