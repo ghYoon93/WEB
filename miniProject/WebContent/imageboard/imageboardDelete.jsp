@@ -3,6 +3,6 @@
 <script type="text/javascript">
     window.onload=function(){
     	alert("목록 삭제 완료");
-    	location.href='../imageboard/imageboardList.do?pg=${pg }';
+    	location.href='../imageboard/imageboardList.do?pg=1';
     }
 </script>

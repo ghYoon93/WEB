@@ -29,17 +29,20 @@ function checkAll(){
 function choiceDelete(){
 	let check = document.getElementsByName("check");
 	let count = 0;
-	for(i = 0; i<check.lengh; i++){
+	for(i = 0; i<check.length; i++){
 		if(check[i].checked) count++;
 	}
 	if(count==0)
 		alert("항목을 선택하세요");
 	else
 		if(confirm("정말로 삭제하시겠습니까?")){
-			document.submit();
+			document.imageboardListForm.submit();
 		}
 }
 
+function imageboardPaging(pg){
+	location.href='imageboardList.do?pg='+pg;
+}
 //$('#deleteBtn').click(function(){
 //	var checkList="";
 //	$('input[name=checkItem]:checked').each(function(){

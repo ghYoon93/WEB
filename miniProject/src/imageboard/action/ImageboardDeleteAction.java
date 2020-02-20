@@ -15,8 +15,6 @@ public class ImageboardDeleteAction implements CommandProcess {
         String[] seq = request.getParameterValues("check");
         ImageDAO imageDAO = ImageDAO.getInstance();
         imageDAO.delete(seq);
-        int pg = Integer.parseInt(request.getParameter("pg"));
-        request.setAttribute("pg", pg);
         request.setAttribute("display", "/imageboard/imageboardDelete.jsp");
         return "/main/index.jsp";
     }

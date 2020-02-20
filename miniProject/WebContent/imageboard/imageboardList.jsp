@@ -4,9 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-  #currentPaging{color:red; text-decoration:underline;}
-  #paging{color:black; text-decoration:none;}
-  #deleteBtn{float:right}
+  #currentPaging{color:red; text-decoration:underline; cursor:pointer;}
+  #paging{color:black; text-decoration:none; cursor: pointer;}
   .content{width:100px; height:100px}
   .content:link{color: black; text-decoration:none;}
   .content:visited{color: black; text-decoration:none;}
@@ -42,12 +41,12 @@
 		</tr>
         </c:forEach>
     </c:if>
-      <tr border = "0">
-        <td colspan="6"><input type="button" value="선택 목록 삭제" onclick="choiceDelete()"><br></td>
-      </tr>
 	</table>
 </form>
-	<div align="center" style="display:inline-block; border: 1px;  width:700px ">
+    <div style="border:1px red solid; float:left;">
+      <input type="button" value="선택 목록 삭제" onclick="choiceDelete()"><br>
+    </div>
+	<div align="center" style="float:left; text-align:center; width:700px; ">
         ${imageBoardPaging.pagingHTML }
 	</div>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

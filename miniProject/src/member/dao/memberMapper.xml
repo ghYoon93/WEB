@@ -49,12 +49,12 @@
            email1 = #{email1 },
            email2 = #{email2 },
            tel1 = #{tel1 },
-                  tel2 = #{tel2 },
-                      tel3 = #{tel3 },
-                      zipcode = #{zipcode },
-                      addr1 = #{addr1 },
-                      addr2 = #{addr2 },
-                      logtime = SYSDATE
+           tel2 = #{tel2 },
+           tel3 = #{tel3 },
+           zipcode = #{zipcode },
+           addr1 = #{addr1 },
+           addr2 = #{addr2 },
+           logtime = SYSDATE
      WHERE id = #{id}
                       
   </update>
