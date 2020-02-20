@@ -33,9 +33,6 @@
                 </c:if>
                 
                 <a class="content" href="javascript:isLogin('${sessionScope.memId }','${boardDTO.seq }','${boardPaging.currentPage }');" id="subject">
-                 <c:if test="${boardDTO.pseq==-1 }">
-                     [원글이 삭제된 답글]
-                 </c:if>
                  ${boardDTO.subject }</a></td>
 			<td width="118px">${boardDTO.id }</td>
 			<td>${boardDTO.logtime }</td>

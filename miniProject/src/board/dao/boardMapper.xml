@@ -66,15 +66,14 @@
   <update id="boardReply3" parameterType="String">
     UPDATE board SET reply=reply+1 WHERE seq = #{seq}
   </update>
-  <update id="boardDelete1" parameterType="int">
-    UPDATE board SET subject="[원글이 삭제된 답글] "||subject pseq = -1, step=step-1 WHERE pseq= #{seq}
-  </update>
-  <update id="boardDelete2" parameterType="int">
-    UPDATE board SET reply=reply-1 
-     WHERE seq IN(SELECT pseq 
-                    FROM board WHERE pseq=#{seq})
-  </update>
-  <delete id = "boardDelete3" parameterType="int">
-    DELETE FROM board WHERE seq=#{seq}
+  
+  <delete id = "boardDelete" parameterType="int">
+    begin
+      UPDATE board SET subject="[원글이 삭제된 답글] "||subject WHERE pseq= #{seq};
+      UPDATE board SET reply=reply-1 
+       WHERE seq IN(SELECT pseq 
+                      FROM board WHERE pseq=#{seq});
+      DELETE FROM board WHERE seq=#{seq}  
+    end;
   </delete>
 </mapper>
