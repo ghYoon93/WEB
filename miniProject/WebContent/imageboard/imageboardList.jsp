@@ -15,9 +15,10 @@
 </style>
 <h2>이미지 목록</h2>
 <input type="hidden" name="pg" value="${imageBoardPaging.currentPage}">
+<form name="imageboardListForm" method="post" action="imageboardDelete.do">
 <table frame="hsides" rules="rows">
 	<tr>
-		<th><input type="checkbox" id=checkAll name = checkAll onclick="checkAll()">번호</th>
+		<th><input type="checkbox" id = all onclick="checkAll()">번호</th>
 		<th>이미지</th>
 		<th>상품명</th>
 		<th>단가</th>
@@ -28,7 +29,7 @@
        <c:forEach var="imageDTO" items="${list }">
 		<tr>
 			<td width="76px" align="center">
-                 <input type="checkbox" name = checkItem value="${imageDTO.seq }">
+                 <input type="checkbox" name = "check" value="${imageDTO.seq }">
                  ${imageDTO.seq }
             </td>
 			<td >
@@ -42,9 +43,10 @@
         </c:forEach>
     </c:if>
       <tr border = "0">
-        <td colspan="6"><input type="button" id="deleteBtn" value="선택 목록 삭제"><br></td>
+        <td colspan="6"><input type="button" value="선택 목록 삭제" onclick="choiceDelete()"><br></td>
       </tr>
 	</table>
+</form>
 	<div align="center" style="display:inline-block; border: 1px;  width:700px ">
         ${imageBoardPaging.pagingHTML }
 	</div>

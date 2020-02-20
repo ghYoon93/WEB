@@ -78,9 +78,9 @@ public class ImageDAO {
         return imageDTO;
     }
 
-    public void delete(String[] list) {
+    public void delete(String[] seq) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        sqlSession.delete("imageSQL.delete",list);
+        sqlSession.delete("imageSQL.delete",seq);
         sqlSession.commit();
         sqlSession.close();
         

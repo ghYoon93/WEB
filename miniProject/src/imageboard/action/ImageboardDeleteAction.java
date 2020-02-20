@@ -12,9 +12,9 @@ public class ImageboardDeleteAction implements CommandProcess {
     @Override
     public String requestPro(HttpServletRequest request, HttpServletResponse response) 
             throws Throwable {
-        String[] list = request.getParameter("seq").split(",");
+        String[] seq = request.getParameterValues("check");
         ImageDAO imageDAO = ImageDAO.getInstance();
-        imageDAO.delete(list);
+        imageDAO.delete(seq);
         int pg = Integer.parseInt(request.getParameter("pg"));
         request.setAttribute("pg", pg);
         request.setAttribute("display", "/imageboard/imageboardDelete.jsp");

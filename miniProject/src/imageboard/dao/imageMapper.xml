@@ -45,9 +45,9 @@
   </select>
   <delete id="delete" parameterType="java.util.Arrays">
     DELETE FROM imageboard WHERE seq IN
-    <foreach collection="array" item="item" index="index" separator="," open="(" close=")">
-        #{item }
-     </foreach>
+    <foreach collection="array" item="seq" index="index" separator="," open="(" close=")">
+        #{seq }
+    </foreach>
 
   </delete>
 </mapper>
