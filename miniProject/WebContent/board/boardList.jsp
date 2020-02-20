@@ -42,7 +42,18 @@
 	</c:if>
 	</table>
 	<div align="center" style="display:inline-block; text-align:center; border: 1px;  width:700px ">
-    ${boardPaging.pagingHTML }
+      ${boardPaging.pagingHTML }
+	</div>
+	<div id="searchDiv" align="center" style="display:inline-block; text-align:center; border: 1px;  width:700px; height:21px; ">
+      <select name="color" style="height:100%;">
+        <option value="red">빨강</option>
+        <option value="yellow">노랑</option>
+        <option value="green">초록</option>
+        <option value="blue">파랑</option>
+        <option value="magenta">보라</option>
+      </select>
+      <input type="text" name="input_text" style="height:100%;">
+      <input type="button" name="input_btn" value="검색" style="height:100%;">
 	</div>
 <script type="text/javascript">
   function isLogin(id, seq, pg) {
