@@ -20,6 +20,4 @@ public class MemberDTO {
 	private String zipcode;
 	private String addr1;
 	private String addr2;
-	
-	
 }

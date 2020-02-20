@@ -27,7 +27,6 @@ import member.bean.ZipcodeDTO;
 
 public class MemberDAO {
 	private static MemberDAO instance;
-
 	private static SqlSessionFactory sqlSessionFactory;
 
 	public static MemberDAO getInstance() {
@@ -54,15 +53,12 @@ public class MemberDAO {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         int result = sqlSession.selectOne("memberSQL.isExistId",id);
         sqlSession.close();
-        Assertions.assertTrue(result>0);
         if(result>0) exist = true;
 		
 		return exist;
 	}
 
 	public void write(MemberDTO memberDTO) {
-		int su=0;
-		String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
 		SqlSession sqlSession = sqlSessionFactory.openSession();
         int result = sqlSession.insert("memberSQL.write",memberDTO);
 	    sqlSession.commit();
