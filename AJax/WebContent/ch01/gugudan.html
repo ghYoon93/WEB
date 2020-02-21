@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <form name="gugudanForm" method="get">
+      <table>
+        <tr>
+          <td>단</td>
+          <td><input type="text" name="dan"></td>
+          <td><input type="button" value="입력" onclick="gugudanRequest()"></td>
+        </tr>
+      </table>
+    </form>
+      <div id="resultDiv" style="border:1px solid; width:240px; display:none;"></div>
+  </body>
+  <script type="text/javascript">
+    let xhr = null;
+    function gugudanRequest(){
+        let dan = encodeURIComponent(document.gugudanForm.dan.value);
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = gugudanResponse;
+        xhr.open("GET","getGugudan.jsp?dan="+dan, true);
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        xhr.send(null);
+    }
+    
+    function gugudanResponse(){
+        if(xhr.readyState == 4){
+            if(xhr.status == 200){
+                var resultDiv = document.getElementById("resultDiv");
+                resultDiv.style.display="block";
+                resultDiv.innerHTML = xhr.responseText;
+            }
+        }   
+    } 
+  </script>
+</html>
