@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>DOM을 사용한 변경</title>
+  </head>
+  <body>
+    <input type="button" value="추가" onclick="appendItem()">
+    <div id="itemList" style="border:1px double blue;"></div>
+  </body>
+  <script type="text/javascript">
+    var count = 0;
+    function appendItem(){
+    	count++;
+    	let newItem = document.createElement("div");
+    	newItem.setAttribute("id","item_"+count);
+    	newItem.setAttribute("style","border:1px dotted red");
+    	
+    	let html = '새로추가된 아이템['+count+']'
+    	         + '<input type="button" value="삭제" onclick="removeItem('+count+')">';
+    	newItem.innerHTML = html;
+    	let itemListNode = document.getElementById('itemList');
+    	itemListNode.appendChild(newItem);
+    }
+    function removeItem(idCount){
+    	let item = document.getElementById("item_"+idCount);
+    	if(item!=null){
+    		item.parentNode.removeChild(item);
+    	}
+    }
+  </script>
+</html>
